@@ -1,4 +1,5 @@
 class ArticlesController < ApplicationController
+  before_action :set_article, only: %i[edit destroy show update]
 
   def index
     @articles = Article.all
@@ -43,8 +44,11 @@ class ArticlesController < ApplicationController
     end
   end
 
-
   private
+
+  def set_article
+    @article = Article.find(params[:id])
+  end
 
   def article_data
     params.require(:article).permit(:title, :description)
